@@ -1,11 +1,25 @@
 ---
+import { Image } from "astro:assets";
+import ArrowUpRight from "@lucide/astro/icons/arrow-up-right";
 import ChevronRight from "@lucide/astro/icons/chevron-right";
+import babylon from "../assets/art/fall-of-babylon.jpg";
+import pandemonium from "../assets/art/pandemonium.jpg";
+import wetMoon from "../assets/art/wet-moon-putney-road.jpg";
 import EmailCopy from "../components/EmailCopy.astro";
 import PaletteToggle from "../components/PaletteToggle.astro";
 import ProjectItem from "../components/ProjectItem.astro";
 import SkillTags from "../components/SkillTags.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const paintings = [
+  { src: pandemonium, alt: "pandemonium, john martin, 1841" },
+  { src: babylon, alt: "the fall of babylon, john martin, 1819" },
+  {
+    src: wetMoon,
+    alt: "a wet moon, putney road, john atkinson grimshaw, 1886",
+  },
+];
 ---
 
 <BaseLayout>
@@ -64,7 +78,63 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       <h2
         class="mb-8 text-lg font-medium text-neutral-800 dark:text-neutral-200"
       >
-        projects
+        now
+      </h2>
+
+      <ProjectItem
+        ariaLabel="open openline.sh"
+        href="https://openline.sh"
+        showcase
+      >
+        <div class="mb-2 flex items-start justify-between gap-4">
+          <h3
+            class="font-medium text-neutral-800 transition-colors group-hover:text-neutral-950 dark:text-neutral-200 dark:group-hover:text-white"
+          >
+            openline
+          </h3>
+          <span
+            class="project-showcase-link mt-0.5 inline-flex shrink-0 items-center gap-1.5 font-mono text-[13px] leading-6 text-neutral-600 dark:text-neutral-400"
+          >
+            openline.sh
+            <span aria-hidden="true" class="inline-flex" data-showcase-arrow>
+              <ArrowUpRight class="h-4 w-4" />
+            </span>
+          </span>
+        </div>
+        <p
+          class="mb-2 text-sm font-medium text-neutral-800 dark:text-neutral-200"
+        >
+          currently fixing communication.
+        </p>
+        <p
+          class="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300"
+        >
+          honestly a bit pissed off at how it works right now. ai made each of
+          us faster and every team slower: everyone has their own agent, and
+          people spend the day copy-pasting between theirs and everyone else's.
+          openline gives every person's agent a line to their teammates' agents,
+          so the quick questions go agent to agent and only the decisions reach
+          a person.
+        </p>
+        <SkillTags
+          skills={[
+            'agent-to-agent',
+            'trust layer',
+            'cli + mcp',
+            'engineering teams first',
+          ]}
+        />
+      </ProjectItem>
+    </div>
+
+    <div class="relative mb-16">
+      <div
+        class="absolute left-0 top-0 h-px w-8 bg-neutral-300 dark:bg-neutral-600"
+      ></div>
+      <h2
+        class="mb-8 text-lg font-medium text-neutral-800 dark:text-neutral-200"
+      >
+        past work
       </h2>
 
       <div class="space-y-8">
@@ -269,18 +339,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           />
         </ProjectItem>
       </div>
-    </div>
 
-    <div class="relative">
-      <div
-        class="absolute left-0 top-0 h-px w-8 bg-neutral-300 dark:bg-neutral-600"
-      ></div>
-      <h2
-        class="mb-8 text-lg font-medium text-neutral-800 dark:text-neutral-200"
+      <p
+        class="mb-6 mt-12 font-mono text-[13px] text-neutral-500 dark:text-neutral-400"
       >
-        experience
-      </h2>
-
+        earlier
+      </p>
       <div class="space-y-6">
         <div>
           <h3 class="mb-1 font-medium text-neutral-800 dark:text-neutral-200">
@@ -306,6 +370,57 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           </p>
         </div>
       </div>
+    </div>
+
+    <div class="relative">
+      <div
+        class="absolute left-0 top-0 h-px w-8 bg-neutral-300 dark:bg-neutral-600"
+      ></div>
+      <h2
+        class="mb-8 text-lg font-medium text-neutral-800 dark:text-neutral-200"
+      >
+        art
+      </h2>
+
+      <ProjectItem
+        ariaLabel="open art.artyomkulimov.com"
+        href="https://art.artyomkulimov.com"
+        showcase
+      >
+        <div class="mb-2 flex items-start justify-between gap-4">
+          <h3
+            class="font-medium text-neutral-800 transition-colors group-hover:text-neutral-950 dark:text-neutral-200 dark:group-hover:text-white"
+          >
+            paintings
+          </h3>
+          <span
+            class="project-showcase-link mt-0.5 inline-flex shrink-0 items-center gap-1.5 font-mono text-[13px] leading-6 text-neutral-600 dark:text-neutral-400"
+          >
+            art.artyomkulimov.com
+            <span aria-hidden="true" class="inline-flex" data-showcase-arrow>
+              <ArrowUpRight class="h-4 w-4" />
+            </span>
+          </span>
+        </div>
+        <p
+          class="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300"
+        >
+          a small collection of paintings i find beautiful, hung on a wall drawn
+          like an architectural elevation.
+        </p>
+        <div class="art-strip mt-4 flex gap-3">
+          {paintings.map((p) => (
+            <Image
+              alt={p.alt}
+              class="h-20 w-auto min-w-0 flex-[var(--r)] object-cover sm:h-24"
+              src={p.src}
+              style={`--r: ${(p.src.width / p.src.height).toFixed(3)}`}
+              widths={[240, 480]}
+              sizes="(min-width: 640px) 220px, 30vw"
+            />
+          ))}
+        </div>
+      </ProjectItem>
     </div>
   </section>
 </BaseLayout>
