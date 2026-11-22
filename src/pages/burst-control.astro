@@ -73,6 +73,10 @@ const faq = [
     a: "Yes. Burst Control is a free, open-source Mac app for the Burst II Air (also written Burst 2 Air). It changes the mouse's DPI stages, polling rate, debounce, lift-off distance, angle snapping and motion sync, and shows its battery level, without a Windows PC.",
   },
   {
+    q: "Can I install it with Homebrew?",
+    a: "Yes: brew install --cask artyomkulimov/tap/burst-control. Homebrew downloads the same signed and notarized release as the GitHub download.",
+  },
+  {
     q: "How do I change the DPI of the Burst II Air on a Mac?",
     a: "Install Burst Control, allow it under Input Monitoring, then plug in the mouse or its receiver. Click any of the five DPI numbers, type a value between 50 and 26,000, and click Apply.",
   },
@@ -307,7 +311,12 @@ const kicker =
 
       <section aria-labelledby="install" class="mt-16">
         <h2 class={h2} id="install">Install</h2>
-        <ol class:list={[body, 'mt-6 list-decimal space-y-3 pl-5']}>
+        <p class:list={[body, 'mt-6']}>With Homebrew:</p>
+        <pre
+          class="mt-3 overflow-x-auto rounded-lg border border-neutral-200 px-4 py-3 font-mono text-[13px] text-neutral-800 dark:border-neutral-800 dark:text-neutral-200"
+        ><code>brew install --cask artyomkulimov/tap/burst-control</code></pre>
+        <p class:list={[body, 'mt-6']}>Or by hand:</p>
+        <ol class:list={[body, 'mt-3 list-decimal space-y-3 pl-5']}>
           <li>
             Download the <code class="font-mono text-[0.9em]">.zip</code> from
             the

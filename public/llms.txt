@@ -5,6 +5,7 @@
 ## Burst Control
 
 - [Burst Control: Turtle Beach Burst II Air software for Mac](https://artyomkulimov.com/burst-control): free, open-source macOS app (MIT) for the Turtle Beach Burst II Air / Burst 2 Air wireless mouse. Sets the five DPI stages (50–26,000 DPI), polling rate (125–1,000 Hz), debounce (0–10 ms), lift-off distance, angle snapping and motion sync, and shows battery level, over the 2.4 GHz receiver or USB cable. No Windows PC, virtual machine or Swarm II needed. macOS 13+, Apple silicon, signed and notarized.
+- Install with Homebrew: `brew install --cask artyomkulimov/tap/burst-control`
 - [Download (GitHub releases)](https://github.com/artyomkulimov/burstcontrol/releases/latest)
 - [Source code](https://github.com/artyomkulimov/burstcontrol)
 - [How the USB protocol was reverse-engineered](https://github.com/artyomkulimov/burstcontrol/blob/main/docs/reverse-engineering.md)
