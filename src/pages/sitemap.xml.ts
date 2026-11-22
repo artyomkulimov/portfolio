@@ -1,6 +1,11 @@
 import type { APIRoute } from "astro";
 
-const routes = ["/", "/showcase/taptm", "/showcase/study-lens"];
+const routes = [
+  "/",
+  "/burst-control",
+  "/showcase/taptm",
+  "/showcase/study-lens",
+];
 
 export const GET: APIRoute = () => {
   const site = import.meta.env.SITE;

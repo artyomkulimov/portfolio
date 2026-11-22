@@ -1,0 +1,421 @@
+---
+import { getImage, Image } from "astro:assets";
+import appShot from "../assets/burst-control/app.png";
+import appIcon from "../assets/burst-control/icon.png";
+import ShowcaseIcon from "../components/ShowcaseIcons.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// Update with each release.
+const version = "0.2.0";
+const released = "2026-11-02";
+const firstReleased = "2026-10-23";
+
+const repo = "https://github.com/artyomkulimov/burstcontrol";
+const download = `${repo}/releases/latest`;
+const walkthrough = `${repo}/blob/main/docs/reverse-engineering.md`;
+const site = Astro.site ?? Astro.url.origin;
+const pageUrl = new URL("/burst-control", site).toString();
+
+const title = "Burst Control: Turtle Beach Burst II Air software for Mac";
+const description =
+  "Free, open-source Mac app for the Turtle Beach Burst II Air (Burst 2 Air) mouse. Change DPI, polling rate, debounce, lift-off distance and motion sync, and see battery level on macOS, over the 2.4 GHz receiver or USB cable.";
+
+const shot = await getImage({ src: appShot, width: 1200, format: "png" });
+
+const settings = [
+  {
+    name: "DPI",
+    body: "All five DPI stages, from 50 to 26,000 DPI in steps of 50. The stage you're on is highlighted as you press the mouse's DPI button.",
+  },
+  {
+    name: "Polling rate",
+    body: "125, 250, 500 or 1,000 Hz.",
+  },
+  {
+    name: "Debounce",
+    body: "0 to 10 ms.",
+  },
+  {
+    name: "Tracking",
+    body: "Lift-off distance, angle snapping and motion sync.",
+  },
+  {
+    name: "Battery",
+    body: "Battery percentage, charging state and whether the mouse is on the receiver or the cable.",
+  },
+  {
+    name: "Safe writes",
+    body: "Changes stay a draft until you click Apply. The app backs up the current settings before writing and reads them back afterwards to check they were stored.",
+  },
+];
+
+const compatibility = [
+  {
+    connection: "USB cable",
+    id: "10f5:5002",
+    status: "Supported",
+  },
+  {
+    connection: "2.4 GHz receiver",
+    id: "10f5:5004",
+    status: "Supported (battery over the receiver not yet confirmed)",
+  },
+  {
+    connection: "Bluetooth",
+    id: "–",
+    status: "Not supported",
+  },
+];
+
+const faq = [
+  {
+    q: "Is there Turtle Beach Burst II Air software for Mac?",
+    a: "Yes. Burst Control is a free, open-source Mac app for the Burst II Air (also written Burst 2 Air). It changes the mouse's DPI stages, polling rate, debounce, lift-off distance, angle snapping and motion sync, and shows its battery level, without a Windows PC.",
+  },
+  {
+    q: "How do I change the DPI of the Burst II Air on a Mac?",
+    a: "Install Burst Control, allow it under Input Monitoring, then plug in the mouse or its receiver. Click any of the five DPI numbers, type a value between 50 and 26,000, and click Apply.",
+  },
+  {
+    q: "Do I still need Swarm II?",
+    a: "Not for the settings listed here. Swarm II is Turtle Beach's own configuration software. Burst Control speaks the same USB protocol from macOS, so you don't need a Windows PC or a virtual machine to change them.",
+  },
+  {
+    q: "Does it work wirelessly?",
+    a: "Yes, through the 2.4 GHz USB receiver as well as the USB cable. When both are connected, the cable is used. Bluetooth is not supported.",
+  },
+  {
+    q: "Which Macs does it run on?",
+    a: "macOS 13 Ventura or later. The signed release is built for Apple silicon (M1 and newer); there is no Intel build yet.",
+  },
+  {
+    q: "Why does it ask for Input Monitoring?",
+    a: "On this mouse the settings channel shares a USB interface with mouse input, so macOS only opens it to apps with Input Monitoring. Burst Control doesn't record movement or keystrokes and doesn't generate input.",
+  },
+  {
+    q: "Do I need to keep the app running?",
+    a: "No. Settings are written to the mouse's active onboard profile, so you can quit the app after clicking Apply. There is no background helper.",
+  },
+  {
+    q: "Is it safe? Is it official?",
+    a: "It's an independent project, not made or endorsed by Turtle Beach. It never flashes firmware, keeps settings it doesn't understand as they are, and backs up your current settings before every write.",
+  },
+  {
+    q: "What can't it do yet?",
+    a: "Switching onboard profiles, button remapping, macros, surface calibration and sleep settings. Bug reports and hardware reports are welcome on GitHub.",
+  },
+];
+
+const author = {
+  "@type": "Person",
+  name: "Artyom Kulimov",
+  url: new URL("/", site).toString(),
+  sameAs: ["https://github.com/artyomkulimov", "https://x.com/artyomkulimov"],
+};
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Burst Control",
+    alternateName: [
+      "BurstControl",
+      "Turtle Beach Burst II Air Mac software",
+      "Burst 2 Air Mac app",
+    ],
+    description,
+    url: pageUrl,
+    image: new URL(shot.src, site).toString(),
+    screenshot: new URL(shot.src, site).toString(),
+    applicationCategory: "UtilitiesApplication",
+    applicationSubCategory: "Mouse configuration",
+    operatingSystem: "macOS 13 or later (Apple silicon)",
+    softwareVersion: version,
+    datePublished: firstReleased,
+    dateModified: released,
+    downloadUrl: download,
+    installUrl: download,
+    license: "https://opensource.org/license/mit",
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    author,
+    sameAs: [repo],
+    about: {
+      "@type": "Product",
+      name: "Turtle Beach Burst II Air",
+      alternateName: "Burst 2 Air",
+      brand: { "@type": "Brand", name: "Turtle Beach" },
+      category: "Wireless gaming mouse",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    name: "Burst Control",
+    codeRepository: repo,
+    programmingLanguage: "Swift",
+    runtimePlatform: "macOS",
+    license: "https://opensource.org/license/mit",
+    author,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: { "@type": "Answer", text: a },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "artyom",
+        item: new URL("/", site).toString(),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Burst Control",
+        item: pageUrl,
+      },
+    ],
+  },
+];
+
+const h2 =
+  "text-2xl font-semibold tracking-tight text-neutral-950 dark:text-neutral-50";
+const body = "text-base leading-7 text-neutral-700 dark:text-neutral-300";
+const kicker =
+  "text-[12px] font-semibold uppercase tracking-[0.22em] text-neutral-500 dark:text-neutral-400";
+---
+
+<BaseLayout
+  description={description}
+  exactTitle
+  jsonLd={jsonLd}
+  ogImage="/burst-control/og.png"
+  ogImageAlt="Burst Control, Turtle Beach Burst II Air software for Mac, showing DPI stages, debounce, polling rate and battery"
+  showNavbar={false}
+  title={title}
+  variant="showcase"
+>
+  <a
+    aria-label="back to portfolio"
+    class="absolute top-5 left-5 z-50 inline-grid grid-cols-[1rem_auto] items-center gap-2 text-xs leading-none text-neutral-600 transition-colors hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-neutral-100 md:top-8 md:left-8 md:text-sm"
+    href="/"
+  >
+    <ShowcaseIcon name="arrow-left" class="h-4 w-4" />
+    <span class="block leading-none">portfolio</span>
+  </a>
+
+  <article
+    class="overflow-hidden bg-white text-neutral-950 dark:bg-black dark:text-neutral-50"
+    data-showcase-page
+  >
+    <header class="border-b border-neutral-200 dark:border-neutral-800">
+      <div
+        class="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-5 pt-24 pb-14 md:grid-cols-[0.85fr_1.15fr] md:items-center md:px-8 md:py-20"
+      >
+        <div class="max-w-xl">
+          <Image
+            alt="Burst Control app icon"
+            class="h-16 w-16 rounded-2xl"
+            loading="eager"
+            src={appIcon}
+            width={64}
+          />
+          <p class:list={[kicker, 'mt-8']}>free mac app · open source</p>
+          <h1
+            class="mt-4 text-[3.4rem] font-semibold leading-[0.95] tracking-tight sm:text-[4.6rem]"
+          >
+            Burst Control
+          </h1>
+          <p
+            class="mt-5 text-xl font-medium leading-8 text-neutral-800 dark:text-neutral-200"
+          >
+            Turtle Beach Burst II Air software for Mac.
+          </p>
+          <p class:list={[body, 'mt-4 max-w-lg']}>
+            Change the DPI, polling rate, debounce and tracking settings of the
+            Burst II Air (also sold as Burst 2 Air) on macOS, and see its
+            battery level. It talks to the mouse directly over the 2.4 GHz
+            receiver or the USB cable. No Windows PC or virtual machine needed.
+          </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              class="inline-flex h-11 items-center rounded-full bg-neutral-950 px-5 text-sm font-medium text-white transition-opacity hover:opacity-85 dark:bg-neutral-100 dark:text-neutral-950"
+              href={download}
+            >
+              Download for Mac
+            </a>
+            <a
+              class="inline-flex h-11 items-center rounded-full border border-neutral-300 px-5 text-sm font-medium text-neutral-800 transition-colors hover:border-neutral-500 dark:border-neutral-700 dark:text-neutral-200 dark:hover:border-neutral-500"
+              href={repo}
+            >
+              Source on GitHub
+            </a>
+          </div>
+          <p
+            class="mt-4 font-mono text-[13px] leading-6 text-neutral-500 dark:text-neutral-400"
+          >
+            v{version}
+            · macOS 13+ · Apple silicon · signed and notarized by Apple · MIT
+            license
+          </p>
+        </div>
+
+        <figure>
+          <Image
+            alt="Burst Control on macOS showing a Burst II Air at 85% battery on USB cable: five DPI stages (400, 800, 1000, 1600, 3200) with 1000 active, debounce 0 ms, polling rate 500 Hz, lift-off distance very low, angle snapping off and motion sync on"
+            class="h-auto w-full rounded-xl shadow-[0_28px_80px_rgba(23,23,23,0.28)]"
+            loading="eager"
+            sizes="(min-width: 1280px) 700px, (min-width: 768px) 56vw, 92vw"
+            src={appShot}
+            widths={[480, 720, 960, 1400]}
+          />
+          <figcaption
+            class="mt-3 font-mono text-[12px] text-neutral-500 dark:text-neutral-400"
+          >
+            Burst Control with a Burst II Air connected by cable.
+          </figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <div class="mx-auto max-w-3xl px-5 py-16 md:px-8">
+      <section aria-labelledby="settings">
+        <h2 class={h2} id="settings">What you can change</h2>
+        <dl
+          class="mt-6 divide-y divide-neutral-200 border-y border-neutral-200 dark:divide-neutral-800 dark:border-neutral-800"
+        >
+          {settings.map((s) => (
+            <div class="grid gap-1 py-4 sm:grid-cols-[10rem_1fr] sm:gap-6">
+              <dt class="font-medium text-neutral-900 dark:text-neutral-100">
+                {s.name}
+              </dt>
+              <dd class={body}>{s.body}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section aria-labelledby="install" class="mt-16">
+        <h2 class={h2} id="install">Install</h2>
+        <ol class:list={[body, 'mt-6 list-decimal space-y-3 pl-5']}>
+          <li>
+            Download the <code class="font-mono text-[0.9em]">.zip</code> from
+            the
+            <a
+              class="underline decoration-neutral-400 underline-offset-4 hover:decoration-current"
+              href={download}
+              >latest release on GitHub</a
+            >, unzip it and move Burst Control to Applications.
+          </li>
+          <li>
+            Open it, then turn it on under System Settings → Privacy & Security
+            → Input Monitoring, and reopen the app.
+          </li>
+          <li>
+            Plug in the USB cable, or connect the receiver and switch the mouse
+            to 2.4 GHz. The settings load automatically.
+          </li>
+        </ol>
+        <p class:list={[body, 'mt-5']}>
+          To build from source you need macOS 13 or later and Apple's Command
+          Line Tools; the steps are in the
+          <a
+            class="underline decoration-neutral-400 underline-offset-4 hover:decoration-current"
+            href={`${repo}#install-from-source`}
+            >README</a
+          >.
+        </p>
+      </section>
+
+      <section aria-labelledby="compatibility" class="mt-16">
+        <h2 class={h2} id="compatibility">Compatibility</h2>
+        <div class="mt-6 overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead
+              class="border-b border-neutral-300 text-neutral-500 dark:border-neutral-700 dark:text-neutral-400"
+            >
+              <tr>
+                <th class="py-2 pr-4 font-medium" scope="col">Connection</th>
+                <th class="py-2 pr-4 font-medium" scope="col">USB ID</th>
+                <th class="py-2 font-medium" scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody
+              class="divide-y divide-neutral-200 text-neutral-800 dark:divide-neutral-800 dark:text-neutral-200"
+            >
+              {compatibility.map((c) => (
+                <tr>
+                  <td class="py-3 pr-4">{c.connection}</td>
+                  <td class="py-3 pr-4 font-mono text-[13px]">{c.id}</td>
+                  <td class="py-3">{c.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class:list={[body, 'mt-5']}>
+          Tested on an Apple silicon Mac. It configures the mouse's active
+          onboard profile and supports one mouse per connection type.
+        </p>
+      </section>
+
+      <section aria-labelledby="how" class="mt-16">
+        <h2 class={h2} id="how">How it works</h2>
+        <p class:list={[body, 'mt-6']}>
+          The mouse stores its own settings; on Windows, Turtle Beach's Swarm II
+          software sends the USB commands that change them. I took the Burst II
+          Air module from Swarm II (<code class="font-mono text-[0.9em]"
+            >BURST_II_AIR.dll</code
+          >), read its machine code to find each setting's handler and the
+          commands it sends, then rebuilt the protocol with macOS HID feature
+          reports in Swift and checked every mapping on the real mouse. The
+          firmware is never modified.
+        </p>
+        <p class:list={[body, 'mt-4']}>
+          The full write-up covers device discovery, the 64-byte packet format
+          and checksum, the settings blocks, battery fields and the differences
+          between cable and receiver:
+          <a
+            class="underline decoration-neutral-400 underline-offset-4 hover:decoration-current"
+            href={walkthrough}
+            >reverse-engineering walkthrough</a
+          >.
+        </p>
+      </section>
+
+      <section aria-labelledby="faq" class="mt-16">
+        <h2 class={h2} id="faq">FAQ</h2>
+        <div
+          class="mt-6 divide-y divide-neutral-200 border-y border-neutral-200 dark:divide-neutral-800 dark:border-neutral-800"
+        >
+          {faq.map(({ q, a }) => (
+            <div class="py-5">
+              <h3 class="font-medium text-neutral-900 dark:text-neutral-100">
+                {q}
+              </h3>
+              <p class:list={[body, 'mt-2']}>{a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <p class="mt-16 text-sm leading-6 text-neutral-500 dark:text-neutral-400">
+        Burst Control is made by
+        <a class="underline underline-offset-4" href="/">Artyom Kulimov</a>. It
+        is an independent project, not affiliated with or endorsed by Turtle
+        Beach. Released under the MIT license. Last updated
+        <time datetime={released}>{released}</time>.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

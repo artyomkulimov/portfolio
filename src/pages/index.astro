@@ -283,18 +283,34 @@ const paintings = [
           />
         </ProjectItem>
 
-        <ProjectItem>
-          <div class="mb-1 flex items-center gap-2">
-            <h3 class="font-medium text-neutral-800 dark:text-neutral-200">
-              burst control
-            </h3>
-            <a
-              href="https://github.com/artyomkulimov/burstcontrol"
-              aria-label="burst control github repository"
-              class="inline-flex min-h-6 items-center text-xs text-neutral-600 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
+        <ProjectItem
+          ariaLabel="open burst control page"
+          href="/burst-control"
+          showcase
+        >
+          <div class="mb-2 flex items-start justify-between gap-4">
+            <div class="flex min-w-0 items-center gap-2">
+              <h3
+                class="font-medium text-neutral-800 transition-colors group-hover:text-neutral-950 dark:text-neutral-200 dark:group-hover:text-white"
+              >
+                burst control
+              </h3>
+              <a
+                href="https://github.com/artyomkulimov/burstcontrol"
+                aria-label="burst control github repository"
+                class="inline-flex min-h-6 items-center text-xs text-neutral-600 transition-colors hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200"
+              >
+                github
+              </a>
+            </div>
+            <span
+              class="project-showcase-link mt-0.5 inline-flex shrink-0 items-center gap-1.5 font-mono text-[13px] leading-6 text-neutral-600 dark:text-neutral-400"
             >
-              github
-            </a>
+              showcase
+              <span aria-hidden="true" class="inline-flex" data-showcase-arrow>
+                <ChevronRight class="h-4 w-4" />
+              </span>
+            </span>
           </div>
           <p
             class="text-sm leading-relaxed text-neutral-700 dark:text-neutral-300"
