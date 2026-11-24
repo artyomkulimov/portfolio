@@ -1,0 +1,114 @@
+---
+interface Props {
+  /** Where the row goes. External links open in a new tab and show ↗. */
+  href: string;
+  meta: string;
+  name: string;
+  what: string;
+}
+
+const { href, meta, name, what } = Astro.props;
+const external = /^https?:\/\//.test(href);
+---
+
+<a
+  class="row"
+  href={href}
+  rel={external ? "noopener noreferrer" : undefined}
+  target={external ? "_blank" : undefined}
+>
+  <span class="name">{name}</span>
+  <span class="sep" aria-hidden="true"> — </span>
+  <span class="what">{what}</span>
+  <span class="meta">{meta}</span>
+  <span class="arrow" aria-hidden="true">{external ? "↗" : "→"}</span>
+</a>
+
+<style>
+  .row {
+    display: flex;
+    align-items: baseline;
+    padding: 0.5rem 0.625rem;
+    margin: 0 -0.625rem;
+    color: var(--home-ink);
+    white-space: nowrap;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    transition:
+      background-color 0.18s,
+      border-color 0.18s,
+      transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .name {
+    flex: none;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+
+  .sep {
+    flex: none;
+    color: var(--home-subtle);
+    white-space: pre;
+  }
+
+  .what {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--home-muted);
+    transition: color 0.15s;
+  }
+
+  .meta {
+    flex: none;
+    padding-left: 1rem;
+    margin-left: auto;
+    color: var(--home-subtle);
+  }
+
+  .arrow {
+    flex: none;
+    width: 1.5rem;
+    color: var(--home-muted);
+    text-align: right;
+    transition: color 0.15s;
+  }
+
+  .row:hover,
+  .row:focus-visible {
+    background: var(--home-card);
+    border-color: var(--home-border);
+    transform: translateX(0.375rem) scale(1.015);
+  }
+
+  .row:hover .name,
+  .row:focus-visible .name,
+  .row:hover .arrow,
+  .row:focus-visible .arrow {
+    color: var(--home-link);
+  }
+
+  .row:hover .what,
+  .row:focus-visible .what {
+    color: var(--home-ink);
+  }
+
+  @media (max-width: 40rem) {
+    .meta {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .row {
+      transition: none;
+    }
+
+    .row:hover,
+    .row:focus-visible {
+      transform: none;
+    }
+  }
+</style>

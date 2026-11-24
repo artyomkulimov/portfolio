@@ -16,7 +16,8 @@ interface Props {
   ogImageAlt?: string;
   showNavbar?: boolean;
   title?: string;
-  variant?: "default" | "showcase";
+  /** `home` renders only the page itself: no navbar, footer or column. */
+  variant?: "default" | "home" | "showcase";
 }
 
 const {
@@ -134,11 +135,17 @@ const ogImageUrl = new URL(ogImage, site).toString();
   <body
     class:list={[
     'antialiased',
-    variant === 'showcase'
-      ? ['mx-0 max-w-none', showNavbar && 'mt-8']
-      : 'mx-auto mt-8 w-[calc(100%-2rem)] max-w-xl',
+    variant === 'home' && 'home',
+    variant === 'showcase' && ['mx-0 max-w-none', showNavbar && 'mt-8'],
+    variant === 'default' && 'mx-auto mt-8 w-[calc(100%-2rem)] max-w-xl',
   ]}
   >
+    {variant === 'home' ? (
+      <>
+        <slot />
+        <SpeedInsights />
+      </>
+    ) : (
     <main
       class:list={[
       'flex-auto min-w-0 flex flex-col',
@@ -146,10 +153,11 @@ const ogImageUrl = new URL(ogImage, site).toString();
       variant === 'showcase' ? 'px-0' : 'px-2 md:px-0',
     ]}
     >
-      {showNavbar && <Navbar variant={variant} />}
+      {showNavbar && <Navbar variant={variant === "showcase" ? "showcase" : "default"} />}
       <slot />
-      <Footer variant={variant} />
+      <Footer variant={variant === "showcase" ? "showcase" : "default"} />
       <SpeedInsights />
     </main>
+    )}
   </body>
 </html>
