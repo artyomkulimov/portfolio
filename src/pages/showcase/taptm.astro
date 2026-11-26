@@ -4,7 +4,6 @@ import homeScreen from "../../assets/taptm/01-home.png";
 import profileScreen from "../../assets/taptm/02-profile.png";
 import propertyScreen from "../../assets/taptm/03-property-detail.png";
 import accountScreen from "../../assets/taptm/04-view-account.png";
-import ShowcaseIcon from "../../components/ShowcaseIcons.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const stack = [
@@ -16,9 +15,8 @@ const stack = [
   "native plugins",
 ];
 
-const phoneImageSizes =
-  "(min-width: 1280px) 320px, (min-width: 768px) 28vw, 76vw";
-const phoneImageWidths = [240, 320, 420, 560, 720, 960];
+const phoneSizes = "(min-width: 640px) 190px, 30vw";
+const phoneWidths = [240, 380, 570];
 
 const screens = [
   {
@@ -50,177 +48,135 @@ const screens = [
     body: "Basic account page for viewing profile information and editing user details.",
   },
 ];
+
+const hero = [screens[1], screens[0], screens[2]];
 ---
 
 <BaseLayout
   title="tap.tm showcase"
   description="tap.tm mobile real-estate app showcase"
-  showNavbar={false}
-  variant="showcase"
 >
-  <a
-    aria-label="back to portfolio"
-    class="absolute top-5 left-5 z-50 inline-grid grid-cols-[1rem_auto] items-center gap-2 text-xs leading-none text-neutral-600 transition-colors hover:text-neutral-950 dark:text-neutral-400 dark:hover:text-neutral-100 md:top-8 md:left-8 md:text-sm"
-    href="/"
-  >
-    <ShowcaseIcon name="arrow-left" class="h-4 w-4" />
-    <span class="block leading-none">portfolio</span>
-  </a>
-
-  <section
-    class="overflow-hidden bg-white text-neutral-950 dark:bg-black dark:text-neutral-50"
-    data-showcase-page
-  >
-    <div class="border-b border-neutral-200 dark:border-neutral-800">
-      <div
-        class="mx-auto grid min-h-[760px] max-w-7xl grid-cols-1 gap-10 px-5 pt-24 pb-10 md:grid-cols-[0.9fr_1.1fr] md:items-center md:px-8 md:py-10 lg:py-14"
-      >
-        <div class="max-w-xl">
-          <p
-            class="text-[12px] font-semibold uppercase tracking-[0.22em] text-neutral-500 dark:text-neutral-400"
-          >
-            mobile real-estate system
-          </p>
-          <h1
-            class="mt-5 text-[4rem] font-semibold leading-[0.9] tracking-tight text-neutral-950 dark:text-neutral-50 sm:text-[5.8rem]"
-          >
-            tap.tm
-          </h1>
-          <p
-            class="mt-6 max-w-lg text-lg leading-8 text-neutral-700 dark:text-neutral-300"
-          >
-            A real-estate app built in Expo Router and React Native for browsing
-            listings, saving properties, posting homes, and shipping a
-            multilingual mobile experience.
-          </p>
-
-          <p
-            class="mt-7 max-w-md border-neutral-300 border-l pl-4 text-neutral-500 text-sm leading-7 dark:border-neutral-800 dark:text-neutral-500"
-          >
-            Built around listing filters, multi-step property creation, and
-            image uploads.
-          </p>
-
-          <ul
-            aria-label="tap.tm technical stack"
-            class="mt-6 flex max-w-lg flex-wrap gap-x-3 gap-y-1 font-mono text-[14px] leading-6 text-neutral-600 dark:text-neutral-400"
-          >
-            {stack.map((item, index) => (
-              <li class="group/skill inline-flex items-baseline gap-3 transition-colors hover:text-neutral-800 dark:hover:text-neutral-200">
-                <span class="decoration-neutral-300 underline-offset-4 transition-[color,text-decoration-color] group-hover/skill:underline dark:decoration-neutral-700">
-                  {item}
-                </span>
-                {index < stack.length - 1 && (
-                  <span
-                    aria-hidden="true"
-                    class="text-neutral-300 transition-colors group-hover/skill:text-neutral-500 dark:text-neutral-700 dark:group-hover/skill:text-neutral-500"
-                  >
-                    /
-                  </span>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div class="relative min-h-[520px] sm:min-h-[600px] md:min-h-[720px]">
-          <div
-            class="absolute top-[14%] left-[3%] w-[38%] max-w-[165px] rotate-[10deg] opacity-95 sm:max-w-[220px] md:top-[10%] md:w-[33%] md:max-w-none md:rotate-[-7deg]"
-          >
-            <div
-              class="rounded-[2rem] border border-neutral-950 bg-neutral-950 p-2 shadow-[0_28px_80px_rgba(23,23,23,0.22)]"
-            >
-              <div class="overflow-hidden rounded-[1.55rem] bg-neutral-100">
-                <Image
-                  alt={screens[1].alt}
-                  class="h-auto w-full"
-                  sizes={phoneImageSizes}
-                  src={screens[1].src}
-                  widths={phoneImageWidths}
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            class="absolute top-[4%] right-[1%] w-[43%] max-w-[190px] rotate-[-16deg] sm:max-w-[250px] md:top-0 md:right-[2%] md:w-[54%] md:max-w-[360px] md:rotate-0"
-          >
-            <div
-              class="rounded-[2rem] border border-neutral-950 bg-neutral-950 p-2 shadow-[0_28px_80px_rgba(23,23,23,0.22)]"
-            >
-              <div class="overflow-hidden rounded-[1.55rem] bg-neutral-100">
-                <Image
-                  alt={screens[0].alt}
-                  class="h-auto w-full"
-                  priority
-                  sizes={phoneImageSizes}
-                  src={screens[0].src}
-                  widths={phoneImageWidths}
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            class="absolute top-[28%] left-[28%] w-[44%] max-w-[195px] rotate-[6deg] sm:max-w-[250px] md:top-auto md:bottom-[8%] md:left-[19%] md:w-[48%] md:max-w-[330px] md:rotate-[4deg]"
-          >
-            <div
-              class="rounded-[2rem] border border-neutral-950 bg-neutral-950 p-2 shadow-[0_28px_80px_rgba(23,23,23,0.22)]"
-            >
-              <div class="overflow-hidden rounded-[1.55rem] bg-neutral-100">
-                <Image
-                  alt={screens[2].alt}
-                  class="h-auto w-full"
-                  sizes={phoneImageSizes}
-                  src={screens[2].src}
-                  widths={phoneImageWidths}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <header class="hero">
+    <p class="subtle">mobile real-estate system</p>
+    <h1 class="title">tap.tm</h1>
+    <p class="dim">
+      A real-estate app built in Expo Router and React Native for browsing
+      listings, saving properties, posting homes, and shipping a multilingual
+      mobile experience. Built around listing filters, multi-step property
+      creation, and image uploads.
+    </p>
+    <p class="subtle">{stack.join(" · ")}</p>
+    <div class="fan">
+      {hero.map((screen, index) => (
+        <span class="phone">
+          <Image
+            alt={screen.alt}
+            loading={index === 1 ? "eager" : "lazy"}
+            sizes={phoneSizes}
+            src={screen.src}
+            widths={phoneWidths}
+          />
+        </span>
+      ))}
     </div>
+  </header>
 
-    <div class="mx-auto max-w-7xl px-5 py-16 md:px-8">
-      <div class="grid gap-14">
-        {screens.map((screen, index) => (
-          <article
-            class:list={[
-              'grid gap-8 pt-10 md:grid-cols-[0.8fr_1.2fr] md:items-center',
-              index === 0 ? '' : 'border-neutral-200 border-t dark:border-neutral-800',
-            ]}
-          >
-            <div class={index % 2 === 1 ? 'md:order-2' : ''}>
-              <p class="font-semibold text-[12px] text-neutral-500 uppercase tracking-[0.22em] dark:text-neutral-400">
-                {screen.kicker}
-              </p>
-              <h2 class="mt-3 text-3xl font-semibold tracking-tight text-neutral-950 dark:text-neutral-50">
-                {screen.title}
-              </h2>
-              <p class="mt-4 max-w-md text-base leading-7 text-neutral-700 dark:text-neutral-300">
-                {screen.body}
-              </p>
-            </div>
-            <div
-              class:list={[
-                'mx-auto w-full max-w-[360px]',
-                index % 2 === 1 ? 'md:justify-self-start' : 'md:justify-self-end',
-              ]}
-            >
-              <div class="rounded-[2rem] border border-neutral-950 bg-neutral-950 p-2 shadow-[0_28px_80px_rgba(23,23,23,0.22)]">
-                <div class="overflow-hidden rounded-[1.55rem] bg-neutral-100">
-                  <Image
-                    alt={screen.alt}
-                    class="h-auto w-full"
-                    sizes={phoneImageSizes}
-                    src={screen.src}
-                    widths={phoneImageWidths}
-                  />
-                </div>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
+  <section aria-labelledby="screens">
+    <h2 id="screens">screens</h2>
+    <div class="screens">
+      {screens.map((screen) => (
+        <article class="screen">
+          <span class="phone">
+            <Image
+              alt={screen.alt}
+              sizes="(min-width: 640px) 160px, 38vw"
+              src={screen.src}
+              widths={[240, 320, 480]}
+            />
+          </span>
+          <div>
+            <p class="subtle">{screen.kicker}</p>
+            <h3>{screen.title}</h3>
+            <p class="dim">{screen.body}</p>
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .hero > * + * {
+    margin-top: 1.25rem;
+  }
+
+  .hero > .title {
+    margin-top: 0.5rem;
+  }
+
+  .phone {
+    display: block;
+    padding: 5px;
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+  }
+
+  .phone :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1.1rem;
+  }
+
+  .fan {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: center;
+    padding-top: 1rem;
+  }
+
+  .fan .phone:nth-child(1) {
+    transform: rotate(-4deg) translateY(1rem);
+  }
+
+  .fan .phone:nth-child(3) {
+    transform: rotate(4deg) translateY(1rem);
+  }
+
+  .screens {
+    border-top: 1px solid var(--border);
+  }
+
+  .screen {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .screen h3 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: 500;
+  }
+
+  .screen h3 + p {
+    margin-top: 0.375rem;
+  }
+
+  @media (max-width: 40rem) {
+    .fan {
+      gap: 0.5rem;
+    }
+
+    .screen {
+      grid-template-columns: 7rem 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

@@ -1,28 +1,23 @@
 ---
 import { Image } from "astro:assets";
 import studyLensContent from "../../assets/study-lens/content.png";
-import ShowcaseIcon from "../../components/ShowcaseIcons.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const flow = [
   {
-    icon: "keyboard",
     label: "hotkey capture",
     body: "Python desktop agent grabs the current problem or worksheet state.",
   },
   {
-    icon: "network",
     label: "live relay",
     body: "A WebSocket bridge moves the screenshot into the web UI without a manual upload loop.",
   },
   {
-    icon: "brain-circuit",
-    label: "AI review",
+    label: "ai review",
     body: "The model checks the work, spots the weak step, and explains the correction.",
   },
   {
-    icon: "message-square",
-    label: "feedback UI",
+    label: "feedback ui",
     body: "Next.js chat surface keeps the answer readable, focused, and easy to revise from.",
   },
 ];
@@ -35,124 +30,77 @@ const details = [
   "next.js chat ui",
   "private prototype",
 ];
-
-const studyImageSizes =
-  "(min-width: 1280px) 720px, (min-width: 768px) 54vw, 88vw";
-const studyImageWidths = [480, 720, 960, 1280, 1600];
 ---
 
 <BaseLayout
   title="study lens showcase"
   description="Private AI study assistant showcase"
-  variant="showcase"
 >
-  <section
-    class="bg-white text-neutral-950 dark:bg-black dark:text-neutral-50"
-    data-showcase-page
-  >
-    <div class="mx-auto max-w-7xl px-5 pt-8 pb-14 md:px-8 lg:pt-10 lg:pb-20">
-      <div
-        class="grid gap-10 border-neutral-200 border-b pb-7.5 dark:border-neutral-800 md:grid-cols-[0.8fr_1.2fr] md:items-end"
-      >
-        <div>
-          <p
-            class="font-mono text-[14px] leading-6 text-neutral-600 dark:text-neutral-400"
-          >
-            ai study workflow
-          </p>
-          <h1
-            class="mt-5 text-6xl font-semibold leading-[0.9] tracking-tight text-neutral-900 dark:text-neutral-100 sm:text-8xl"
-          >
-            study lens
-          </h1>
-        </div>
-        <p
-          class="max-w-2xl text-balance text-lg leading-8 text-neutral-700 dark:text-neutral-300"
-        >
-          A screenshot-based study companion for reviewing solved problems,
-          checking reasoning, and turning mistakes into focused feedback.
-        </p>
-      </div>
+  <header class="hero">
+    <p class="subtle">ai study workflow</p>
+    <h1 class="title">study lens</h1>
+    <p class="dim">
+      A screenshot-based study companion for reviewing solved problems, checking
+      reasoning, and turning mistakes into focused feedback.
+    </p>
+    <p class="subtle">{details.join(" · ")}</p>
+    <figure>
+      <Image
+        alt="Study Lens showing a question paper screenshot and a model answer"
+        class="shot"
+        loading="eager"
+        sizes="(min-width: 640px) 600px, 92vw"
+        src={studyLensContent}
+        widths={[600, 900, 1200]}
+      />
+      <figcaption>one capture, one readable answer.</figcaption>
+    </figure>
+  </header>
 
-      <div
-        class="grid gap-12 pt-9.5 pb-13.5 md:grid-cols-[0.72fr_1.28fr] md:items-start lg:pt-[46px] lg:pb-[78px]"
-      >
-        <div class="md:sticky md:top-24">
-          <h2
-            class="mt-3 text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
-          >
-            one capture, one readable answer
-          </h2>
-          <p
-            class="mt-4 max-w-md text-base leading-7 text-neutral-700 dark:text-neutral-300"
-          >
-            Screenshot your work and get immediate AI feedback on your reasoning
-            without breaking the study flow.
-          </p>
-
-          <ul
-            aria-label="study lens technical details"
-            class="mt-10 divide-y divide-neutral-200 font-mono text-[14px] leading-6 text-neutral-600 dark:divide-neutral-800 dark:text-neutral-400"
-          >
-            {details.map((detail) => (
-              <li class="group/skill py-2 transition-colors hover:text-neutral-800 dark:hover:text-neutral-200">
-                <span class="decoration-neutral-300 underline-offset-4 transition-[color,text-decoration-color] group-hover/skill:underline dark:decoration-neutral-700">
-                  {detail}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div
-          class="hidden md:block md:w-full md:max-w-[720px] md:justify-self-end"
-        >
-          <Image
-            alt="Study Lens showing a question paper screenshot and a model answer"
-            class="h-auto w-full max-w-[720px]"
-            priority
-            sizes={studyImageSizes}
-            src={studyLensContent}
-            widths={studyImageWidths}
-          />
-        </div>
-      </div>
-
-      <div class="border-neutral-200 border-t py-10 dark:border-neutral-800">
-        <div class="grid gap-10 md:grid-cols-[0.72fr_1.28fr]">
-          <div>
-            <p
-              class="font-mono text-[14px] leading-6 text-neutral-600 dark:text-neutral-400"
-            >
-              system shape
-            </p>
-            <h2
-              class="mt-3 text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100"
-            >
-              from capture to explanation
-            </h2>
-          </div>
-
-          <div class="grid gap-x-8 gap-y-10 md:grid-cols-2">
-            {flow.map((item, index) => (
-              <div
-                class:list={[
-                  'pt-4',
-                  index > 1 && 'border-neutral-200 border-t dark:border-neutral-800',
-                ]}
-              >
-                <div class="flex items-center gap-2 text-neutral-700 dark:text-neutral-300">
-                  <ShowcaseIcon name={item.icon} class="h-4 w-4" />
-                  <h3 class="text-sm font-semibold">{item.label}</h3>
-                </div>
-                <p class="mt-3 text-sm leading-6 text-neutral-700 dark:text-neutral-300">
-                  {item.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+  <section aria-labelledby="how">
+    <h2 id="how">how it works</h2>
+    <ol class="ruled flow">
+      {flow.map((step, index) => (
+        <li>
+          <span class="n">{String(index + 1).padStart(2, "0")}</span>
+          <span>
+            <span class="ink">{step.label}</span>
+            <span class="dim">{step.body}</span>
+          </span>
+        </li>
+      ))}
+    </ol>
   </section>
 </BaseLayout>
+
+<style>
+  .hero > * + * {
+    margin-top: 1.25rem;
+  }
+
+  .hero > .title {
+    margin-top: 0.5rem;
+  }
+
+  .hero figure {
+    margin-top: 2rem;
+  }
+
+  .flow {
+    padding: 0;
+    list-style: none;
+  }
+
+  .flow li {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+  }
+
+  .flow li > span:last-child > span {
+    display: block;
+  }
+
+  .n {
+    color: var(--subtle);
+  }
+</style>

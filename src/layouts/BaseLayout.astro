@@ -2,8 +2,8 @@
 import geistLatinFont from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
 import geistMonoLatinFont from "@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2?url";
 import SpeedInsights from "@vercel/speed-insights/astro";
-import Footer from "../components/Footer.astro";
-import Navbar from "../components/Navbar.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -14,10 +14,7 @@ interface Props {
   jsonLd?: object | object[];
   ogImage?: string;
   ogImageAlt?: string;
-  showNavbar?: boolean;
   title?: string;
-  /** `home` renders only the page itself: no navbar, footer or column. */
-  variant?: "default" | "home" | "showcase";
 }
 
 const {
@@ -26,9 +23,7 @@ const {
   jsonLd,
   ogImage = "/og.png",
   ogImageAlt = "Artyom Kulimov portfolio preview",
-  showNavbar = true,
   title = "artyom",
-  variant = "default",
 } = Astro.props;
 const pageTitle =
   exactTitle || title === "artyom" ? title : `${title} | artyom`;
@@ -38,54 +33,12 @@ const ogImageUrl = new URL(ogImage, site).toString();
 ---
 
 <!doctype html>
-<html
-  lang="en"
-  class="bg-white text-black dark:bg-black dark:text-white"
-  data-site-theme="gruvbox"
->
+<html lang="en">
   <head>
-    <script is:inline>
-      (() => {
-        const root = document.documentElement;
-        const themeModeKey = "theme-mode";
-        const siteThemeKey = "site-theme";
-        const siteThemes = [
-          "gruvbox",
-          "default",
-          "slate",
-          "mocha",
-          "pine",
-          "nord",
-          "sage",
-          "sand",
-        ];
-        const readStorage = (key) => {
-          try {
-            return localStorage.getItem(key);
-          } catch {
-            return null;
-          }
-        };
-
-        try {
-          localStorage.removeItem("theme");
-          localStorage.removeItem("theme-preference");
-        } catch {
-          // Storage can be unavailable in strict browser modes.
-        }
-
-        const storedSiteTheme = readStorage(siteThemeKey);
-        root.dataset.siteTheme =
-          storedSiteTheme && siteThemes.includes(storedSiteTheme)
-            ? storedSiteTheme
-            : siteThemes[0];
-
-        const storedTheme = readStorage(themeModeKey);
-        root.classList.toggle("dark", storedTheme !== "light");
-      })();
-    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#0a0a0a">
     <meta name="description" content={description}>
     <meta
       name="robots"
@@ -132,32 +85,12 @@ const ogImageUrl = new URL(ogImage, site).toString();
       />
     )}
   </head>
-  <body
-    class:list={[
-    'antialiased',
-    variant === 'home' && 'home',
-    variant === 'showcase' && ['mx-0 max-w-none', showNavbar && 'mt-8'],
-    variant === 'default' && 'mx-auto mt-8 w-[calc(100%-2rem)] max-w-xl',
-  ]}
-  >
-    {variant === 'home' ? (
-      <>
-        <slot />
-        <SpeedInsights />
-      </>
-    ) : (
-    <main
-      class:list={[
-      'flex-auto min-w-0 flex flex-col',
-      variant === 'showcase' ? showNavbar && 'mt-6' : 'mt-0',
-      variant === 'showcase' ? 'px-0' : 'px-2 md:px-0',
-    ]}
-    >
-      {showNavbar && <Navbar variant={variant === "showcase" ? "showcase" : "default"} />}
-      <slot />
-      <Footer variant={variant === "showcase" ? "showcase" : "default"} />
-      <SpeedInsights />
-    </main>
-    )}
+  <body>
+    <div class="page">
+      <SiteHeader />
+      <main><slot /></main>
+      <SiteFooter />
+    </div>
+    <SpeedInsights />
   </body>
 </html>

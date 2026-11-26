@@ -1,0 +1,95 @@
+---
+import EmailCopy from "./EmailCopy.astro";
+
+// On the home page the name is the page's heading; everywhere else it's the
+// way back home.
+const home = Astro.url.pathname === "/";
+---
+
+<header class="top">
+  {home ? (
+    <h1 class="me">artyom kulimov</h1>
+  ) : (
+    <a class="me" href="/">
+      <span aria-hidden="true" class="back">←</span>
+      artyom kulimov
+    </a>
+  )}
+  <nav aria-label="elsewhere" class="links">
+    <a href="https://github.com/artyomkulimov">github</a>
+    <a href="https://x.com/artyomkulimov">x</a>
+    <a href="https://www.linkedin.com/in/artyom-kulimov-7a5032265/">
+      linkedin
+    </a>
+    <EmailCopy class="email" />
+  </nav>
+</header>
+
+<style>
+  .top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .me {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+
+  a.me {
+    transition: color 0.15s;
+  }
+
+  .back {
+    display: inline-block;
+    margin-right: 0.25rem;
+    color: var(--muted);
+    transition:
+      color 0.15s,
+      transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  a.me:hover,
+  a.me:hover .back {
+    color: var(--link);
+  }
+
+  a.me:hover .back {
+    transform: translateX(-0.25rem);
+  }
+
+  .links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .links a,
+  .links :global(.email) {
+    padding: 0;
+    font: inherit;
+    color: var(--muted);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    transition: color 0.15s;
+  }
+
+  .links a:hover,
+  .links :global(.email:hover) {
+    color: var(--ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a.me:hover .back {
+      transform: none;
+    }
+  }
+</style>
