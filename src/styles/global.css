@@ -51,16 +51,14 @@ img {
   }
 }
 
-/* Sections are split by a hairline. Most headings are only there for screen
+/* Sections are split by space alone. Most headings are only there for screen
    readers (.hidden); long reading pages show them as plain text. */
 main p {
   margin: 0;
 }
 
 main section {
-  padding-top: 2.5rem;
-  margin-top: 2.5rem;
-  border-top: 1px solid var(--border);
+  margin-top: 5rem;
 }
 
 main > section:first-child,
@@ -177,11 +175,6 @@ pre {
   padding: 0.75rem 0;
   margin: 0;
   border-bottom: 1px solid var(--border);
-}
-
-/* A ruled list right under a hidden heading would double the hairline. */
-main section > .hidden + .ruled {
-  border-top: 0;
 }
 
 .shot {
