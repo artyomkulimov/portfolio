@@ -72,10 +72,7 @@ const paintings = [
 <BaseLayout>
   <section aria-labelledby="about">
     <h2 class="hidden" id="about">about</h2>
-    <p class="dim intro">
-      <span class="ink">developer.</span>
-      working on connecting agents together.
-    </p>
+    <p class="intro">developer, working on connecting agents together.</p>
   </section>
 
   <section aria-labelledby="now">
@@ -136,9 +133,16 @@ const paintings = [
 </BaseLayout>
 
 <style>
+  /* Same size as the name in the header, never bigger; lighter and softer. */
   .intro {
-    font-size: 20px;
-    line-height: 32px;
+    font-size: 17px;
+    line-height: 28px;
+    color: var(--soft);
+  }
+
+  /* Sits close under the name, so the two read as one block. */
+  section[aria-labelledby="about"] {
+    margin-top: 1.5rem;
   }
 
   .openline {
