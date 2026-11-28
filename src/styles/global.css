@@ -51,13 +51,16 @@ img {
   }
 }
 
-/* Sections: an uppercase label, then the content. */
+/* Sections are split by a hairline. Most headings are only there for screen
+   readers (.hidden); long reading pages show them as plain text. */
 main p {
   margin: 0;
 }
 
 main section {
-  margin-top: 4rem;
+  padding-top: 2.5rem;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
 }
 
 main > section:first-child,
@@ -71,10 +74,21 @@ main section > * + * {
 
 main h2 {
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  font-size: inherit;
+  font-weight: 500;
+}
+
+main section > .hidden + * {
+  margin-top: 0;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
 }
 
 main p + p {
@@ -163,6 +177,11 @@ pre {
   padding: 0.75rem 0;
   margin: 0;
   border-bottom: 1px solid var(--border);
+}
+
+/* A ruled list right under a hidden heading would double the hairline. */
+main section > .hidden + .ruled {
+  border-top: 0;
 }
 
 .shot {

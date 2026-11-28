@@ -82,7 +82,7 @@ const hero = [screens[1], screens[0], screens[2]];
   </header>
 
   <section aria-labelledby="screens">
-    <h2 id="screens">screens</h2>
+    <h2 class="hidden" id="screens">screens</h2>
     <div class="screens">
       {screens.map((screen) => (
         <article class="screen">
@@ -144,10 +144,6 @@ const hero = [screens[1], screens[0], screens[2]];
 
   .fan .phone:nth-child(3) {
     transform: rotate(4deg) translateY(1rem);
-  }
-
-  .screens {
-    border-top: 1px solid var(--border);
   }
 
   .screen {

@@ -71,16 +71,15 @@ const paintings = [
 
 <BaseLayout>
   <section aria-labelledby="about">
-    <h2 id="about">ABOUT</h2>
+    <h2 class="hidden" id="about">about</h2>
     <p class="dim">
       <span class="ink">developer.</span>
-      i'm building openline. before that i co-founded nebuladevs and examvault,
-      and shipped the things below.
+      working on connecting agents together.
     </p>
   </section>
 
   <section aria-labelledby="now">
-    <h2 id="now">NOW</h2>
+    <h2 class="hidden" id="now">now</h2>
     <a class="openline" href="https://openline.sh">
       <Image
         alt="openline's pixel-art dubai skyline at night"
@@ -108,14 +107,14 @@ const paintings = [
   </section>
 
   <section aria-labelledby="past">
-    <h2 id="past">PAST WORK</h2>
+    <h2 class="hidden" id="past">past work</h2>
     <div class="rows">
       {projects.map((p) => <IndexRow {...p} />)}
     </div>
   </section>
 
   <section aria-labelledby="art">
-    <h2 id="art">ART</h2>
+    <h2 class="hidden" id="art">art</h2>
     <a class="art" href="https://art.artyomkulimov.com">
       <span class="strip">
         {paintings.map((p) => (
@@ -156,7 +155,7 @@ const paintings = [
   }
 
   /* Logo and text sit in the night sky; the fade only darkens the top, so
-       the cloud glow at the bottom stays. */
+         the cloud glow at the bottom stays. */
   .overlay {
     position: absolute;
     inset: 0 0 auto;
